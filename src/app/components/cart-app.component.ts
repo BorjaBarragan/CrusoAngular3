@@ -2,14 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { Product } from '../models/product';
 import { CatalogComponent } from './catalog/catalog.component';
+<<<<<<< HEAD
 import { CartItem } from '../models/cartItem';
 import { NavbarComponent } from '../componets/navbar/navbar.component';
 import { CartModalComponent } from '../componets/cart-modal/cart-modal.component';
+=======
+import { CartComponent } from './cart/cart.component';
+import { CartItem } from '../models/cartItem';
+import { NavbarComponent } from '../componets/navbar/navbar.component';
+>>>>>>> 7b26cb43c25121770ac979fd5e73f2195d42e40b
 
 @Component({
   selector: 'cart-app',
   standalone: true,
+<<<<<<< HEAD
   imports: [CatalogComponent, CartModalComponent, NavbarComponent],
+=======
+  imports: [CatalogComponent, CartComponent, NavbarComponent],
+>>>>>>> 7b26cb43c25121770ac979fd5e73f2195d42e40b
   templateUrl: './cart-app.component.html',
 })
 export class CartAppComponent implements OnInit {
@@ -19,15 +29,22 @@ export class CartAppComponent implements OnInit {
 
   items: CartItem[] = [];
 
+<<<<<<< HEAD
   // total: number = 0;
 
   showCart: boolean = false;
+=======
+  total: number = 0;
+
+  showCart : boolean = false;
+>>>>>>> 7b26cb43c25121770ac979fd5e73f2195d42e40b
 
   //El constructor inyecta una instancia de ProductService
   //El componente CartApp. usa el servicio ProductService para obtener una lista de productos.
   constructor(private service: ProductService) {
     // Inyección de dependencias: El servicio ProductService se inyecta en el componente
   }
+<<<<<<< HEAD
   //ngOnInit se llama después de la creación del componente y la inyección de dependencias
   ngOnInit(): void {
     //Aquí estamos inicializando la lista de productos al llamar a un método del servicio inyectado
@@ -36,6 +53,15 @@ export class CartAppComponent implements OnInit {
     //JSON.parse(sessionStorage.getItem('cart') || '[]'): Si no hay datos en sessionStorage, devuelve una cadena vacía
     this.items = JSON.parse(sessionStorage.getItem('cart') || '[]');
     // this.calculateTotal();
+=======
+
+  ngOnInit(): void {
+    //ngOnInit se llama después de la creación del componente y la inyección de dependencias
+    this.products = this.service.findAll();
+    //Aquí estamos inicializando la lista de productos al llamar a un método del servicio inyectado
+    this.items = JSON.parse(sessionStorage.getItem('cart')|| '[]');
+    this.calculateTotal();
+>>>>>>> 7b26cb43c25121770ac979fd5e73f2195d42e40b
   }
 
   onAddCart(product: Product): void {
@@ -68,12 +94,18 @@ export class CartAppComponent implements OnInit {
       this.items = [...this.items, { product: { ...product }, quantity: 1 }]
       //Crear una copia del producto que se está agregando y establecer la cantidad inicial a 1
     }
+<<<<<<< HEAD
     // this.calculateTotal();
     // this.saveSession();
+=======
+    this.calculateTotal();
+    this.saveSession();
+>>>>>>> 7b26cb43c25121770ac979fd5e73f2195d42e40b
   }
 
   onDeleteCart(id: number): void {
     this.items = this.items.filter(item => item.product.id != id);
+<<<<<<< HEAD
     if(this.items.length == 0){
       sessionStorage.removeItem('cart');
       sessionStorage.clear();
@@ -94,6 +126,21 @@ export class CartAppComponent implements OnInit {
   // }
 
   openCloseCart(): void {
+=======
+    this.calculateTotal();
+    this.saveSession();
+  }
+
+  calculateTotal(): void {
+    this.total = this.items.reduce((acumulator, item) => acumulator + item.quantity * item.product.price, 0);
+  }
+
+  saveSession(): void {
+    sessionStorage.setItem('cart', JSON.stringify(this.items));
+  }
+
+  openCart(): void{
+>>>>>>> 7b26cb43c25121770ac979fd5e73f2195d42e40b
     this.showCart = !this.showCart;
   }
 }
